@@ -14,19 +14,35 @@ class Counters extends Component {
     ],
   };
 
+  handleReset = () => {
+    const newCounters = this.state.counters.map((c) => {
+      c.value = 0;
+      return c;
+    });
+
+    this.setState({ counters: newCounters });
+  };
+
   handleDelete = (counterId) => {
-    console.log("Event handler called!", counterId);
+    // Ei muokata statea suoraan, vaan luodaan uusi array ilman poistettua osaa, ja annetaan Reactin päivittää state setState:lla.
+    const newCounters = this.state.counters.filter((c) => c.id !== counterId);
+    this.setState({ counters: newCounters }); // HUOM! Jos state-propin nimi on sama kuin constantin pelkkä { counters } riittää.
   };
 
   render() {
     return (
       <div>
+        <button
+          onClick={this.handleReset}
+          className="btn btn-primary btn-sm m-2"
+        >
+          Reset
+        </button>
         {this.state.counters.map((counter) => (
           <Counter
             key={counter.id}
             onDelete={this.handleDelete}
-            value={counter.value}
-            selected={true}
+            counter={counter}
           />
         ))}
       </div>

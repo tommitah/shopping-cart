@@ -5,9 +5,9 @@ class Counter extends Component {
   // Props sisältää dataa jota annetaan komponentille, State sisältää dataa joka on lokaalia tai yksityistä(private)
   // ko. komponentille.
   // "The component that _owns_ a piece of the state, should be the one _modifying_ it."
-  state = {
-    value: this.props.value,
-  };
+  // state = {
+  //   value: this.props.counter.value,
+  // };
 
   styles = {
     fontSize: 20,
@@ -50,7 +50,7 @@ class Counter extends Component {
           Increment
         </button>
         <button
-          onClick={() => this.props.onDelete(this.props.key)}
+          onClick={() => this.props.onDelete(this.props.counter.id)}
           className="btn btn-danger btn-sm m-2"
         >
           Delete
