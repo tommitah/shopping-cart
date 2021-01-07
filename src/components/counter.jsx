@@ -35,7 +35,10 @@ class Counter extends Component {
   // eikä myöskään "bindata" funktio-oliota (this.handleIncrement = this.handleIncrement.bind(this);)
   // HUOM!! funktiot javascriptissä on myös olioita, tämän takia voit kutsua bind() metodia eventhandlerille.
   handleIncrement = () => {
-    console.log("Increment clicked", this);
+    // Reactissa ei kosketa stateen suoraan, esim. this.state.count++;
+    // Sen sijaan passataan muutos metodille joka updatee DOMin, jotta muutos renderöidään oikein
+    // setState ottaa sisäänsä olion.
+    this.setState({ count: this.state.count++ });
   };
 
   getBadgeClass() {
