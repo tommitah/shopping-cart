@@ -15,8 +15,11 @@ class App extends Component {
 
   constructor() {
     super();
-
     console.log("App - constructor");
+  }
+
+  componentDidMount() {
+    console.log("App - mounted");
   }
 
   handleIncrement = (counter) => {
