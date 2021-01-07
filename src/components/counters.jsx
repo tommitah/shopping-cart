@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Counter from "./counterlulba";
+import Counter from "./counter";
 
 class Counters extends Component {
   // Kun poistetaan Counter listasta, behaviourin _on oltava_ tässä komponentissa (katso kommentti counter.jsx), vaikka nappi itsessään
