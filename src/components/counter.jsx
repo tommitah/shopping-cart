@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 
 class Counter extends Component {
+  // ---Props vs State---
+  // Props sisältää dataa jota annetaan komponentille, State sisältää dataa joka on lokaalia tai yksityistä(private)
+  // ko. komponentille.
   state = {
     value: this.props.value,
   };
@@ -10,6 +13,7 @@ class Counter extends Component {
     fontWeight: "bold",
   };
 
+  // HUOM! Nuolifunktiodeklaraatio funktioille tekee tästä litaniasta ylimääräisen.
   // constructor() {
   //  super();
   //  this.handleIncrement = this.handleIncrement.bind(this);
