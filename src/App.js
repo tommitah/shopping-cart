@@ -45,6 +45,13 @@ class App extends Component {
     this.setState({ counters: newCounters }); // HUOM! Jos state-propin nimi on sama kuin constantin pelkkä { counters } riittää.
   };
 
+  handleAdd = () => {
+    const index = this.state.counters.length;
+    const newCounters = this.state.counters;
+    newCounters.push({ id: index + 1, value: 0 });
+    this.setState({ counters: newCounters });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -57,6 +64,7 @@ class App extends Component {
             onReset={this.handleReset}
             onIncrement={this.handleIncrement}
             onDelete={this.handleDelete}
+            onAdd={this.handleAdd}
           />
         </main>
       </React.Fragment>
