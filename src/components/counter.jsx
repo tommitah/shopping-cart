@@ -4,6 +4,7 @@ class Counter extends Component {
   // ---Props vs State---
   // Props sisältää dataa jota annetaan komponentille, State sisältää dataa joka on lokaalia tai yksityistä(private)
   // ko. komponentille.
+  // "The component that _owns_ a piece of the state, should be the one _modifying_ it."
   state = {
     value: this.props.value,
   };
@@ -24,11 +25,10 @@ class Counter extends Component {
   // Kun käyttää nuolifunktiota, ei ole tarpeellista kutsua luokan konstruktoria ja base luokan kon. (super();)
   // eikä myöskään "bindata" funktio-oliota (this.handleIncrement = this.handleIncrement.bind(this);)
   // HUOM!! funktiot javascriptissä on myös olioita, tämän takia voit kutsua bind() metodia eventhandlerille.
-  handleIncrement = (product) => {
+  handleIncrement = () => {
     // Reactissa ei kosketa stateen suoraan, esim. this.state.value++; (Voi olla vanhaa tietoa!)
     // Sen sijaan passataan muutos metodille joka updatee DOMin, jotta muutos renderöidään oikein
     // setState ottaa sisäänsä olion.
-    console.log(product); // PRODUCT ON UNDEFINED!
     this.setState({ value: this.state.value + 1 });
   };
 
@@ -48,6 +48,12 @@ class Counter extends Component {
           className="btn btn-secondary btn-sm"
         >
           Increment
+        </button>
+        <button
+          onClick={() => this.props.onDelete(this.props.id)}
+          className="btn btn-danger btn-sm m-2"
+        >
+          Delete
         </button>
       </div>
     );
