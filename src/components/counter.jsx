@@ -1,74 +1,113 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
-class Counter extends Component {
-  // ---Props vs State yms muut kommentit---
-  // Props sisältää dataa jota annetaan komponentille, State sisältää dataa joka on lokaalia tai yksityistä(private)
-  // ko. komponentille.
-  // "The component that _owns_ a piece of the state, should be the one _modifying_ it."
-  // state = {
-  //   value: this.props.counter.value,
-  // };
+// ---Props vs State yms muut kommentit---
+// Props sisältää dataa jota annetaan komponentille, State sisältää dataa joka on lokaalia tai yksityistä(private)
+// ko. komponentille.
+// "The component that _owns_ a piece of the state, should be the one _modifying_ it."
+// state = {
+//   value: this.props.counter.value,
+// };
 
-  // HUOM! Nuolifunktiodeklaraatio funktioille tekee tästä litaniasta ylimääräisen.
-  // constructor() {
-  //  super();
-  //  this.handleIncrement = this.handleIncrement.bind(this);
-  // }
+// HUOM! Nuolifunktiodeklaraatio funktioille tekee tästä litaniasta ylimääräisen.
+// constructor() {
+//  super();
+//  this.handleIncrement = this.handleIncrement.bind(this);
+// }
 
-  // Event handler!
-  // See constructor!
-  // Kun käyttää nuolifunktiota, ei ole tarpeellista kutsua luokan konstruktoria ja base luokan kon. (super();)
-  // eikä myöskään "bindata" funktio-oliota (this.handleIncrement = this.handleIncrement.bind(this);)
-  // HUOM!! funktiot javascriptissä on myös olioita, tämän takia voit kutsua bind() metodia eventhandlerille.
-  // handleIncrement = () => {
-  //   // Reactissa ei kosketa stateen suoraan, esim. this.state.value++; (Voi olla vanhaa tietoa!)
-  //   // Sen sijaan passataan muutos metodille joka updatee DOMin, jotta muutos renderöidään oikein
-  //   // setState ottaa sisäänsä olion.
-  //   this.setState({ value: this.state.value + 1 });
-  // };
+// Event handler!
+// See constructor!
+// Kun käyttää nuolifunktiota, ei ole tarpeellista kutsua luokan konstruktoria ja base luokan kon. (super();)
+// eikä myöskään "bindata" funktio-oliota (this.handleIncrement = this.handleIncrement.bind(this);)
+// HUOM!! funktiot javascriptissä on myös olioita, tämän takia voit kutsua bind() metodia eventhandlerille.
+// handleIncrement = () => {
+//   // Reactissa ei kosketa stateen suoraan, esim. this.state.value++; (Voi olla vanhaa tietoa!)
+//   // Sen sijaan passataan muutos metodille joka updatee DOMin, jotta muutos renderöidään oikein
+//   // setState ottaa sisäänsä olion.
+//   this.setState({ value: this.state.value + 1 });
+// };
 
-  // Rajapintaistaa alkuperäisen handlerin. Ohjelma osaa antaa handlerille parametrin, joka voi olla esim. tuotteen tunniste.
-  // ällö tapa kirjoittaa tämä toiminnallisuus, älä tee ylimääräisiä wrappereita, joita kutsutaan renderissä oikean funktion sijasta.
-  // Sen sijaan käytä nuolifunktiota suoraan render() funktion sisällä ts. inline function.
-  // doHandleIncrement = () => {
-  //  this.handleIncrement({ id: 1 });
-  // };
+// Rajapintaistaa alkuperäisen handlerin. Ohjelma osaa antaa handlerille parametrin, joka voi olla esim. tuotteen tunniste.
+// ällö tapa kirjoittaa tämä toiminnallisuus, älä tee ylimääräisiä wrappereita, joita kutsutaan renderissä oikean funktion sijasta.
+// Sen sijaan käytä nuolifunktiota suoraan render() funktion sisällä ts. inline function.
+// doHandleIncrement = () => {
+//  this.handleIncrement({ id: 1 });
+// };
+//class Counter extends Component {
+//  styles = {
+//    fontSize: 20,
+//    fontWeight: "bold",
+//  };
+//
+//  render() {
+//    return (
+//      <div>
+//        <span className={this.getBadgeClass()}>{this.formatCounter()}</span>
+//        <button
+//          onClick={() => this.props.onIncrement(this.props.counter)}
+//          className="btn btn-secondary btn-sm"
+//        >
+//          Increment
+//        </button>
+//        <button
+//          onClick={() => this.props.onDelete(this.props.counter.id)}
+//          className="btn btn-danger btn-sm m-2"
+//        >
+//          Delete
+//        </button>
+//      </div>
+//    );
+//  }
+//
+//  getBadgeClass() {
+//    let classes = "badge m-2 badge-";
+//    classes += this.props.counter.value === 0 ? "warning" : "primary";
+//    return classes;
+//  }
+//
+//  formatCounter() {
+//    const { value } = this.props.counter;
+//    return value === 0 ? "Zero" : value;
+//  }
+//}
+//
+//export default Counter;
 
-  styles = {
+const Counter = (props) => {
+  const { counter, onIncrement, onDelete } = props;
+
+  const styles = {
     fontSize: 20,
     fontWeight: "bold",
   };
 
-  render() {
-    return (
-      <div>
-        <span className={this.getBadgeClass()}>{this.formatCounter()}</span>
-        <button
-          onClick={() => this.props.onIncrement(this.props.counter)}
-          className="btn btn-secondary btn-sm"
-        >
-          Increment
-        </button>
-        <button
-          onClick={() => this.props.onDelete(this.props.counter.id)}
-          className="btn btn-danger btn-sm m-2"
-        >
-          Delete
-        </button>
-      </div>
-    );
-  }
-
-  getBadgeClass() {
+  const getBadgeClass = () => {
     let classes = "badge m-2 badge-";
-    classes += this.props.counter.value === 0 ? "warning" : "primary";
+    classes += props.counter.value === 0 ? "warning" : "primary";
     return classes;
-  }
+  };
 
-  formatCounter() {
-    const { value } = this.props.counter;
+  const formatCounter = () => {
+    const { value } = props.counter;
     return value === 0 ? "Zero" : value;
-  }
-}
+  };
+
+  return (
+    <div>
+      <span className={getBadgeClass()}>{formatCounter()}</span>
+      <button
+        onClick={() => onIncrement(counter)}
+        className="btn btn-secondary btn-sm"
+      >
+        Increment
+      </button>
+      <button
+        onClick={() => onDelete(counter.id)}
+        className="btn btn-danger btn-sm m-2"
+      >
+        Delete
+      </button>
+    </div>
+  );
+};
 
 export default Counter;
