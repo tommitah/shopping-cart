@@ -10,7 +10,10 @@ class Counter extends Component {
     fontWeight: "bold",
   };
 
-  constructor() {}
+  // constructor() {
+  //  super();
+  //  this.handleIncrement = this.handleIncrement.bind(this);
+  // }
 
   render() {
     return (
@@ -27,9 +30,13 @@ class Counter extends Component {
   }
 
   // Event handler!
-  handleIncrement() {
-    console.log("Increment clicked");
-  }
+  // See constructor!
+  // Kun käyttää nuolifunktiota, ei ole tarpeellista kutsua luokan konstruktoria ja base luokan kon. (super();)
+  // eikä myöskään "bindata" funktio-oliota (this.handleIncrement = this.handleIncrement.bind(this);)
+  // HUOM!! funktiot javascriptissä on myös olioita, tämän takia voit kutsua bind() metodia eventhandlerille.
+  handleIncrement = () => {
+    console.log("Increment clicked", this);
+  };
 
   getBadgeClass() {
     let classes = "badge m-2 badge-";
